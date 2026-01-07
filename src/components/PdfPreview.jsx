@@ -1,93 +1,52 @@
 //client side component
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { searchPlugin } from "@react-pdf-viewer/search";
+
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/search/lib/styles/index.css";
 
 const PdfPreview = ({ pdfUrl, formData }) => {
-  //Prevents highlighting before PDF is ready
-  const [isDocumentLoaded, setIsDocumentLoaded] = useState(false);
 
-  const highlightTimeoutRef = useRef(null);
-  const searchPluginInstance = useRef(null);
-  const scrollPositionRef = useRef({ x: 0, y: 0 });
+  
+  const searchPluginRef = useRef(
+    searchPlugin({
+      enableShortcuts: false,
+    })
+  );
 
-  //search plugin instance
-  const searchPluginInstanceVal = searchPlugin({
-    enableShortcuts: false,
-  });
-
+  // highlight logic
   useEffect(() => {
-    searchPluginInstance.current = searchPluginInstanceVal;
-  }, [searchPluginInstanceVal]);
+    if (!pdfUrl) return;
+    
+    const plugin = searchPluginRef.current;
 
-  useEffect(() => {
-    //reset on pdf change
-    setIsDocumentLoaded(false);
+    const keywords = [
+      formData.name,
+      formData.age,
+      formData.designation,
+      ...(formData.keywords
+        ? formData.keywords.split(",").map(k => k.trim())
+        : []),
+    ].filter(Boolean);
 
-    if (highlightTimeoutRef.current) {
-      clearTimeout(highlightTimeoutRef.current);
-    }
-  }, [pdfUrl]);
-  //highlighting logic
-  useEffect(() => {
-    if (!pdfUrl || !isDocumentLoaded || !searchPluginInstance.current) return;
+   
+    plugin.clearHighlights();
 
-    if (highlightTimeoutRef.current) {
-      clearTimeout(highlightTimeoutRef.current);
-    }
+    if (keywords.length === 0) return;
 
-    highlightTimeoutRef.current = setTimeout(() => {
-      try {
-        const allKeywords = [
-          formData.name,
-          formData.age,
-          formData.designation,
-          ...(formData.keywords
-            ? formData.keywords.split(",").map((k) => k.trim())
-            : []),
-        ].filter((k) => k && k.toString().trim() !== "");
+    const escaped = keywords.map(k =>
+      k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    );
 
-        if (allKeywords.length === 0) {
-          searchPluginInstance.current.clearHighlights();
-          return;
-        }
+    
+    const regex = new RegExp(`(${escaped.join("|")})`, "gi");
 
-        const container = document.querySelector(".rpv-core__viewer");
-        if (container) {
-          scrollPositionRef.current = {
-            x: container.scrollLeft,
-            y: container.scrollTop,
-          };
-        }
-        // for highlighting keywords
-        allKeywords.forEach((keyword) => {
-          const trimmedKeyword = keyword.toString().trim();
-          if (trimmedKeyword) {
-            searchPluginInstance.current.highlight(trimmedKeyword);
-          }
-        });
+    plugin.highlight(regex);
 
-        if (container) {
-          setTimeout(() => {
-            container.scrollLeft = scrollPositionRef.current.x;
-            container.scrollTop = scrollPositionRef.current.y;
-          }, 0);
-        }
-      } catch (error) {
-        console.error("Highlight error:", error);
-      }
-    }, 300);
-
-    return () => {
-      if (highlightTimeoutRef.current) {
-        clearTimeout(highlightTimeoutRef.current);
-      }
-    };
-  }, [pdfUrl, formData, isDocumentLoaded]);
+  }, [formData, pdfUrl]);
 
   return (
     <div className="pdf-container">
@@ -109,9 +68,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
         <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js">
           <Viewer
             fileUrl={pdfUrl}
-            onDocumentLoad={() => setIsDocumentLoaded(true)}
-            defaultScale={1.0}
-            plugins={[searchPluginInstance.current]}
+            plugins={[searchPluginRef.current]}
           />
         </Worker>
       )}
