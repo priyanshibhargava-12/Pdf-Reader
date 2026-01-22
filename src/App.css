@@ -180,3 +180,22 @@ body {
     flex-direction: column;
   }
 }
+
+.upload-section button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: #11142f;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.upload-section button:hover {
+  border-color: var(--primary-blue);
+}
+
+.active-btn {
+  background: var(--primary-blue) !important;
+  box-shadow: 0 0 6px rgba(122, 162, 255, 0.6);
+}
