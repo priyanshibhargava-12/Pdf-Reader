@@ -4,7 +4,14 @@
   --dark-bg: #0f1224;
   --card-bg: #181c3a;
   --border-color: rgba(255, 255, 255, 0.08);
+  --text-muted: #c7c8cc;
+  --panel-bg: #14183a;
+  --input-bg: #11142f;
+  --input-bg-gradient: linear-gradient(180deg, #11142f, #0e1128);
+  --highlight-bg: rgba(122, 162, 255, 0.35);
+  --shadow-blue: rgba(79, 110, 247, 0.25);
 }
+
 
 * {
   box-sizing: border-box;
@@ -18,34 +25,37 @@ body {
   overflow: hidden;
 }
 
+
 .rpv-highlight__area {
-  background-color: rgba(122, 162, 255, 0.35) !important;
+  background-color: var(--highlight-bg) !important;
 }
 
+/* Layout */
 .app {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Heading */
 .heading {
   text-align: center;
   padding: 18px;
   font-size: 1.8rem;
   font-weight: 600;
-  background: #14183a;
+  background: var(--panel-bg);
   border-bottom: 1px solid var(--border-color);
   text-shadow: 0px 0px 6px rgba(242, 241, 241, 0.3);
 }
 
-/* form uploader */
+/* Upload Section */
 .upload-section {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
   padding: 16px;
-  background: #14183a;
+  background: var(--panel-bg);
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0px 0px 6px rgba(6, 5, 17, 0.2);
 }
@@ -56,6 +66,7 @@ body {
   color: var(--light-blue);
 }
 
+/* File Input Button */
 .upload-section input[type="file"] {
   padding: 10px 18px;
   background: var(--primary-blue);
@@ -64,7 +75,7 @@ body {
   color: white;
   cursor: pointer;
   font-weight: 500;
-  box-shadow: #7aa2ff 0px 0px 2px;
+  box-shadow: 0px 0px 2px var(--light-blue);
 }
 
 .upload-section input[type="file"]::-webkit-file-upload-button,
@@ -72,6 +83,27 @@ body {
   display: none;
 }
 
+/* Buttons */
+.upload-section button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.upload-section button:hover {
+  border-color: var(--primary-blue);
+}
+
+.active-btn {
+  background: var(--primary-blue) !important;
+  box-shadow: 0 0 6px var(--highlight-bg);
+}
+
+/* Content Section */
 .content-section {
   flex: 1;
   display: flex;
@@ -80,13 +112,18 @@ body {
   overflow: hidden;
 }
 
-.pdf-container {
+/* Excel Container */
+.pdf-container,
+.image-container,
+.excel-container {
   flex: 1;
   background: var(--card-bg);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   overflow: hidden;
   box-shadow: #c0c0c2 0px 0px 2px 1px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pdf-container .rpv-core__viewer {
@@ -94,18 +131,7 @@ body {
   overflow: auto !important;
 }
 
-/* 
-.pdf-container:hover,
-.form-section:hover {
-  border-color: transparent;
-  background:
-    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-    linear-gradient(135deg, var(--primary-blue), var(--light-blue)) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 12px 28px rgba(79, 110, 247, 0.25);
-} */
-
-/* pdf Form */
+/* Form Section */
 .form-section {
   flex: 1;
   background: var(--card-bg);
@@ -120,12 +146,11 @@ body {
 
 .form-section h2 {
   color: var(--light-blue);
-  margin: 0 0 20px 0;
-  color: var(--light-blue);
   font-size: 1.5rem;
   font-weight: 700;
 }
 
+/* Labels */
 .form-section label {
   font-size: 13px;
   font-weight: 500;
@@ -133,69 +158,77 @@ body {
   display: block;
 }
 
-/* form inputs */
+/* Inputs */
 .form-section input,
 .form-section textarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
-  background: #11142f;
+  background: var(--input-bg-gradient);
   color: white;
   font-size: 14px;
 }
 
-.form-section input:focus,
-.form-section textarea:focus {
-  outline: none;
-  border-color: var(--primary-blue);
-}
-.form-section input,
-.form-section textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: linear-gradient(180deg, #11142f, #0e1128);
-  color: white;
-  font-size: 14px;
-}
 .form-section textarea {
   resize: vertical;
   min-height: 100px;
 }
 
+/* Input Focus Glow */
 .form-section input:focus,
 .form-section textarea:focus {
   outline: none;
   border-color: transparent;
-  background: linear-gradient(#11142f, #11142f) padding-box,
+  background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
     linear-gradient(135deg, var(--primary-blue), var(--light-blue)) border-box;
   border: 1px solid transparent;
-  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.25);
+  box-shadow: 0 0 0 3px var(--shadow-blue);
 }
 
+/* Excel Table */
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.excel-table th {
+  border: 1px solid #444;
+  padding: 8px;
+  background: var(--panel-bg);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  color: white;
+}
+
+.excel-table td {
+  border: 1px solid #333;
+  padding: 6px;
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+
+/* Excel Highlight */
+.excel-highlight {
+  background-color: var(--highlight-bg);
+  color: white;
+}
+
+/* Empty Preview UI  */
+.preview-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-blue);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
   .content-section {
     flex-direction: column;
   }
-}
-
-.upload-section button {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: #11142f;
-  color: white;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.upload-section button:hover {
-  border-color: var(--primary-blue);
-}
-
-.active-btn {
-  background: var(--primary-blue) !important;
-  box-shadow: 0 0 6px rgba(122, 162, 255, 0.6);
 }

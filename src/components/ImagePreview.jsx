@@ -13,7 +13,7 @@ const ImagePreview = ({ imageUrl, formData }) => {
     if (!imageUrl) return;
 
     Tesseract.recognize(imageUrl, "eng").then(({ data }) => {
-      console.log( data.words);
+      console.log(data.words);
       setWords(data.words || []);
     });
   }, [imageUrl]);
@@ -28,16 +28,16 @@ const ImagePreview = ({ imageUrl, formData }) => {
   };
 
   // Keywords from form
-  const keywords = [
-    formData?.name,
-    formData?.age,
-    formData?.designation,
-    ...(formData?.keywords
-      ? formData.keywords.split(",").map(k => k.trim())
-      : []),
-  ]
-    .filter(Boolean)
-    .map(k => k.toLowerCase());
+  const keywords = formData?.keywords
+    ? formData.keywords
+        .split(",")
+        .map((k) => k.trim())
+        .filter((k) => k.length > 0)
+    : [];
+
+  if (!imageUrl) {
+    return <div className="preview-empty">🖼️ Upload an image to preview</div>;
+  }
 
   return (
     <div style={{ position: "relative", width: "100%" }}>
@@ -56,14 +56,14 @@ const ImagePreview = ({ imageUrl, formData }) => {
 
         const wordText = word.text.toLowerCase();
 
-        const isMatch = keywords.some(k => wordText.includes(k));
+        const isMatch =
+          keywords.length > 0 &&
+          keywords.some((k) => wordText.includes(k.toLowerCase()));
         if (!isMatch) return null;
-          //left
-        const scaleX =
-          imgRef.current.clientWidth / imageSize.width;
-          //top
-        const scaleY =
-          imgRef.current.clientHeight / imageSize.height;
+        //left
+        const scaleX = imgRef.current.clientWidth / imageSize.width;
+        //top
+        const scaleY = imgRef.current.clientHeight / imageSize.height;
 
         const { x0, y0, x1, y1 } = word.bbox;
 

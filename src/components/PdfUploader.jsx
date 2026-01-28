@@ -10,4 +10,4 @@ const PdfUploader = ({ setPdfUrl }) => {
   return <input type="file" accept="application/pdf" onChange={handleUpload} />;
 };
 
-export default PdfUploader;
+export default PdfUploader;  

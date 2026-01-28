@@ -5,16 +5,16 @@ import PdfForm from "./components/PdfForm";
 import ImageUploader from "./components/ImageUploader";
 import ImagePreview from "./components/ImagePreview";
 import "./App.css";
+import ExcelUploader from "./components/ExcelUploader";
+import ExcelPreview from "./components/ExcelPreview";
 
 function App() {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [activeViewer, setActiveViewer] = useState("pdf");
 
+  const [excelData, setExcelData] = useState([]);
+  const [activeViewer, setActiveViewer] = useState("pdf");
   const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    designation: "",
     keywords: "",
   });
 
@@ -39,9 +39,21 @@ function App() {
           Image
         </button>
 
+        <button
+          className={activeViewer === "excel" ? "active-btn" : ""}
+          onClick={() => setActiveViewer("excel")}
+        >
+          Excel
+        </button>
+
         {activeViewer === "pdf" && <PdfUploader setPdfUrl={setPdfUrl} />}
+        
         {activeViewer === "image" && (
           <ImageUploader setImageUrl={setImageUrl} />
+        )}
+
+        {activeViewer === "excel" && (
+          <ExcelUploader setExcelData={setExcelData} />
         )}
       </div>
 
@@ -53,6 +65,10 @@ function App() {
 
           {activeViewer === "image" && (
             <ImagePreview imageUrl={imageUrl} formData={formData} />
+          )}
+
+          {activeViewer === "excel" && (
+            <ExcelPreview excelData={excelData} formData={formData} />
           )}
         </div>
 

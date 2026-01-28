@@ -11,14 +11,12 @@ import "@react-pdf-viewer/search/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 
 const PdfPreview = ({ pdfUrl, formData }) => {
-
   // search plugin instance
   const searchPluginRef = useRef(
     searchPlugin({
       enableShortcuts: false,
-    })
+    }),
   );
-
 
   const pageNavPluginRef = useRef(pageNavigationPlugin());
 
@@ -27,65 +25,41 @@ const PdfPreview = ({ pdfUrl, formData }) => {
 
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
-
   useEffect(() => {
     if (!pdfUrl || !isPdfLoaded) return;
 
-    const keywords = [
-      formData?.name,
-      formData?.age,
-      formData?.designation,
-      ...(formData?.keywords
-        ? formData.keywords.split(",").map((k) => k.trim())
-        : []),
-    ].filter((k) => typeof k === "string" && k.length > 0);
+    const keywords = formData?.keywords
+      ? formData.keywords
+          .split(",")
+          .map((k) => k.trim())
+          .filter((k) => k.length > 0)
+      : [];
+
 
     clearHighlights();
+    
     if (!keywords.length) return;
-    console.log(formData);
-  const values = keywords.map((word) => ({
-        keyword: word,
-        matchCase: false,
-        wholeWords: true, 
-      }))
-       console.log(values);
-    highlight(
-      values
-    );
+    // console.log(formData);
+    const values = keywords.map((word) => ({
+      keyword: word,
+      matchCase: false,
+      wholeWords: false,
+    }));
+    //  console.log(values);
+    highlight(values);
   }, [formData, pdfUrl, isPdfLoaded]);
 
   return (
-    <div className="pdf-container" style={{ height: "100%" }}>
+    <div className="pdf-container">
       {!pdfUrl ? (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-            color: "#7aa2ff",
-            fontSize: "1.2rem",
-            fontWeight: "500",
-          }}
-        >
-          📄 Upload a PDF to preview
-        </div>
+        <div className="preview-empty">📄 Upload a PDF to preview</div>
       ) : (
         <>
-    
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              padding: "6px 12px",
-              fontSize: "14px",
-              color: "#c7c8cc",
-            }}
-          >
+          <div className="pdf-page-label">
             <CurrentPageLabel>
               {(props) => (
                 <>
-                   {props.currentPage + 1} / {props.numberOfPages}
+                  {props.currentPage + 1} / {props.numberOfPages}
                 </>
               )}
             </CurrentPageLabel>
@@ -94,10 +68,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
           <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js">
             <Viewer
               fileUrl={pdfUrl}
-              plugins={[
-                searchPluginRef.current,
-                pageNavPluginRef.current,
-              ]}
+              plugins={[searchPluginRef.current, pageNavPluginRef.current]}
               onDocumentLoad={() => setIsPdfLoaded(true)}
             />
           </Worker>
