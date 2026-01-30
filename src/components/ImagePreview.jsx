@@ -35,12 +35,35 @@ const ImagePreview = ({ imageUrl, formData }) => {
         .filter((k) => k.length > 0)
     : [];
 
+  const ImageIconComponent = () => (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+      <polyline points="21 15 16 10 5 21"></polyline>
+    </svg>
+  );
+
   if (!imageUrl) {
-    return <div className="preview-empty">🖼️ Upload an image to preview</div>;
+    return (
+      <div className="preview-empty">
+        <ImageIconComponent />
+        <span>Upload an image to preview</span>
+      </div>
+    );
   }
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
+    <div
+      className="image-wrapper has-content"
+      style={{ position: "relative", width: "100%" }}
+    >
       {imageUrl && (
         <img
           ref={imgRef}
@@ -76,9 +99,11 @@ const ImagePreview = ({ imageUrl, formData }) => {
               top: y0 * scaleY,
               width: (x1 - x0) * scaleX,
               height: (y1 - y0) * scaleY,
-              background: "rgba(255, 255, 0, 0.45)",
+              background: "rgba(59, 130, 246, 0.25)",
+              border: "1px solid rgba(59, 130, 246, 0.5)",
               borderRadius: "4px",
               pointerEvents: "none",
+              transition: "background-color 0.2s ease",
             }}
           />
         );

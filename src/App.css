@@ -1,234 +1,589 @@
 :root {
-  --primary-blue: #4f6ef7;
-  --light-blue: #7aa2ff;
-  --dark-bg: #0f1224;
-  --card-bg: #181c3a;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --text-muted: #c7c8cc;
-  --panel-bg: #14183a;
-  --input-bg: #11142f;
-  --input-bg-gradient: linear-gradient(180deg, #11142f, #0e1128);
-  --highlight-bg: rgba(122, 162, 255, 0.35);
-  --shadow-blue: rgba(79, 110, 247, 0.25);
+  --primary: #0f172a;
+  --primary-light: #1a2332;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --success: #10b981;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --border: #374151;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1f2937;
 }
-
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  background: var(--dark-bg);
-  color: #ffffff;
+  background: var(--primary);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  color: var(--text-primary);
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-
-.rpv-highlight__area {
-  background-color: var(--highlight-bg) !important;
-}
-
-/* Layout */
+/* APP */
 .app {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Heading */
-.heading {
-  text-align: center;
-  padding: 18px;
-  font-size: 1.8rem;
-  font-weight: 600;
-  background: var(--panel-bg);
-  border-bottom: 1px solid var(--border-color);
-  text-shadow: 0px 0px 6px rgba(242, 241, 241, 0.3);
+/* HEADER */
+.app-header {
+  background: var(--primary-light);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Upload Section */
-.upload-section {
+.header-content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 16px;
-  background: var(--panel-bg);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0px 0px 6px rgba(6, 5, 17, 0.2);
+  gap: 12px;
 }
 
-.upload-section h3 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--light-blue);
-}
-
-/* File Input Button */
-.upload-section input[type="file"] {
-  padding: 10px 18px;
-  background: var(--primary-blue);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  font-weight: 500;
-  box-shadow: 0px 0px 2px var(--light-blue);
-}
-
-.upload-section input[type="file"]::-webkit-file-upload-button,
-.upload-section input[type="file"]::file-selector-button {
+.hamburger-btn {
   display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
-/* Buttons */
-.upload-section button {
-  padding: 10px 16px;
+.hamburger-btn:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.hamburger-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  height: calc(100vh - 65px);
+  gap: 0;
+}
+
+
+.sidebar {
+  width: 280px;
+  background: var(--primary-light);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Document Buttons */
+.document-types {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.doc-type-btn {
+  padding: 12px 16px;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: var(--input-bg);
-  color: white;
+  border: 1px solid transparent;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
   cursor: pointer;
   font-weight: 500;
-}
-
-.upload-section button:hover {
-  border-color: var(--primary-blue);
-}
-
-.active-btn {
-  background: var(--primary-blue) !important;
-  box-shadow: 0 0 6px var(--highlight-bg);
-}
-
-/* Content Section */
-.content-section {
-  flex: 1;
+  font-size: 14px;
+  transition: all 0.2s ease;
   display: flex;
-  gap: 16px;
-  padding: 16px;
-  overflow: hidden;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Excel Container */
-.pdf-container,
-.image-container,
-.excel-container {
-  flex: 1;
-  background: var(--card-bg);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-  box-shadow: #c0c0c2 0px 0px 2px 1px;
-  display: flex;
-  flex-direction: column;
+.doc-type-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent);
 }
 
-.pdf-container .rpv-core__viewer {
-  height: 100%;
-  overflow: auto !important;
+.doc-type-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
-/* Form Section */
-.form-section {
-  flex: 1;
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* UPLOAD AREA */
+.upload-area {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
-.form-section h2 {
-  color: var(--light-blue);
-  font-size: 1.5rem;
-  font-weight: 700;
+.upload-area h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
 }
 
-/* Labels */
-.form-section label {
+.upload-area input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
+  transition: all 0.2s ease;
 }
 
-/* Inputs */
-.form-section input,
-.form-section textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: var(--input-bg-gradient);
-  color: white;
-  font-size: 14px;
+.upload-area input:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
 }
 
-.form-section textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Input Focus Glow */
-.form-section input:focus,
-.form-section textarea:focus {
-  outline: none;
-  border-color: transparent;
-  background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
-    linear-gradient(135deg, var(--primary-blue), var(--light-blue)) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 0 0 3px var(--shadow-blue);
-}
-
-/* Excel Table */
-.excel-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.excel-table th {
-  border: 1px solid #444;
-  padding: 8px;
-  background: var(--panel-bg);
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  color: white;
-}
-
-.excel-table td {
-  border: 1px solid #333;
-  padding: 6px;
-  color: var(--text-muted);
-  transition: 0.2s;
-}
-
-/* Excel Highlight */
-.excel-highlight {
-  background-color: var(--highlight-bg);
-  color: white;
-}
-
-/* Empty Preview UI  */
-.preview-empty {
+/* MAIN CONTENT */
+.main-content {
   flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--primary);
+  height: 100%;
+}
+
+/* SEARCH BAR */
+.search-panel {
+  background: var(--primary-light);
+  border-radius: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.search-panel .form-section {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--light-blue);
-  font-size: 1.2rem;
-  font-weight: 500;
+  gap: 12px;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .content-section {
-    flex-direction: column;
+.search-panel h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* SEARCH INPUT */
+.search-panel textarea {
+  flex: 1;
+  height: 40px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  font-size: 14px;
+  color: var(--text-primary);
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.search-panel textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-panel textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ================= PREVIEW BOX ================= */
+.preview-container {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border: 2px dashed var(--border);
+  padding: 0;
+  overflow: auto;
+  height: 100%;
+  white-space: nowrap;
+}
+
+/* PDF / DOC VIEWER WRAPPER */
+.pdf-wrapper {
+  height: 100%;
+  overflow: auto;
+  min-width: max-content;
+}
+
+/* CHANGE BORDER TO SOLID WHEN CONTENT LOADED */
+.preview-container:has(.pdf-wrapper.has-content),
+.preview-container:has(.image-wrapper.has-content),
+.preview-container:has(.word-wrapper.has-content),
+.preview-container:has(table) {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.pdf-container {
+  height: 100%;
+  overflow: auto;
+  padding: 16px;
+}
+
+.word-container {
+  height: 100%;
+  overflow: auto;
+}
+
+/* React PDF FIX */
+.react-pdf__Document {
+  height: auto !important;
+  min-width: max-content;
+}
+
+.react-pdf__Page {
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* EMPTY STATE */
+.preview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  font-size: 16px;
+  gap: 12px;
+}
+
+.preview-empty svg {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* HIDE ALL SCROLLBARS */
+.sidebar::-webkit-scrollbar,
+.preview-container::-webkit-scrollbar,
+.pdf-wrapper::-webkit-scrollbar,
+.word-container::-webkit-scrollbar,
+.pdf-container::-webkit-scrollbar,
+table::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Firefox scrollbar hiding */
+.sidebar,
+.preview-container,
+.pdf-wrapper,
+.word-container,
+.pdf-container,
+table {
+  scrollbar-width: none;
+}
+
+/*  RESPONSIVE DESIGN */
+
+/* TABLET - 768px and below */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-title {
+    font-size: 20px;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 65px;
+    width: 70%;
+    max-width: 300px;
+    height: calc(100vh - 65px);
+    padding: 16px;
+    border-right: 1px solid var(--border);
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  .main-content {
+    padding: 12px;
+    flex: 1;
+  }
+
+  .search-panel {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .search-panel h2 {
+    font-size: 12px;
+  }
+
+  .search-panel textarea {
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .doc-type-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .upload-area input {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .react-pdf__Page {
+    margin-bottom: 12px;
+  }
+
+  .preview-empty {
+    font-size: 14px;
+  }
+
+  .preview-empty svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* MOBILE - 640px and below */
+@media (max-width: 640px) {
+  .app {
+    height: 100vh;
+  }
+
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-title {
+    font-size: 18px;
+  }
+
+  .app-body {
+    position: relative;
+    height: calc(100vh - 57px);
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 57px;
+    width: 70%;
+    max-width: 280px;
+    height: calc(100vh - 57px);
+    padding: 16px;
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  .document-types {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .doc-type-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .upload-area {
+    padding-top: 12px;
+    margin-top: auto;
+  }
+
+  .upload-area h3 {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .upload-area input {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 12px;
+    width: 100%;
+  }
+
+  .search-panel {
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+
+  .search-panel .form-section {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .search-panel h2 {
+    font-size: 11px;
+  }
+
+  .search-panel textarea {
+    height: 36px;
+    font-size: 12px;
+    padding: 8px 10px;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .preview-container {
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .react-pdf__Page {
+    margin-bottom: 10px;
+  }
+
+  .preview-empty {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .preview-empty svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pdf-container {
+    padding: 12px;
+  }
+
+  .word-container {
+    padding: 0;
+  }
+
+  #word-content {
+    padding: 16px !important;
+  }
+}
+
+/* SMALL MOBILE - 480px and below */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 16px;
+  }
+
+  .sidebar {
+    max-height: 140px;
+    padding: 12px;
+  }
+
+  .document-types {
+    gap: 4px;
+  }
+
+  .doc-type-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .search-panel {
+    padding: 8px 10px;
+  }
+
+  .search-panel textarea {
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .preview-empty {
+    font-size: 11px;
+  }
+
+  .preview-empty svg {
+    width: 32px;
+    height: 32px;
   }
 }

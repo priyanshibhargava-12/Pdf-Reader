@@ -49,13 +49,23 @@ const PdfPreview = ({ pdfUrl, formData }) => {
     highlight(values);
   }, [formData, pdfUrl, isPdfLoaded]);
 
+  const FileIcon = () => (
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+      <polyline points="13 2 13 9 20 9"></polyline>
+    </svg>
+  );
+
   return (
-    <div className="pdf-container">
+    <div className={`pdf-wrapper ${pdfUrl ? 'has-content' : ''}`}>
       {!pdfUrl ? (
-        <div className="preview-empty">📄 Upload a PDF to preview</div>
+        <div className="preview-empty">
+          <FileIcon />
+          <span>Upload a PDF to preview</span>
+        </div>
       ) : (
-        <>
-          <div className="pdf-page-label">
+        <div className="pdf-container">
+          {/* <div className="pdf-page-label">
             <CurrentPageLabel>
               {(props) => (
                 <>
@@ -63,7 +73,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
                 </>
               )}
             </CurrentPageLabel>
-          </div>
+          </div> */}
 
           <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js">
             <Viewer
@@ -72,7 +82,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
               onDocumentLoad={() => setIsPdfLoaded(true)}
             />
           </Worker>
-        </>
+        </div>
       )}
     </div>
   );
