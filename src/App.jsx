@@ -125,7 +125,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* HEADER */}
+      {/* header */}
       <div className="app-header">
         <div className="header-content">
           <button
@@ -135,11 +135,11 @@ function App() {
           >
             {sidebarOpen ? <CloseIcon /> : <HamburgerIcon />}
           </button>
-          <h1 className="app-title">Document Viewer</h1>
+          <h1 className="app-title">View-Hub</h1>
         </div>
       </div>
 
-      {/* SIDEBAR OVERLAY FOR MOBILE */}
+      {/* sidebar overlay for mobile */}
       {sidebarOpen && (
         <div
           className="sidebar-overlay"
@@ -148,7 +148,7 @@ function App() {
       )}
 
       <div className="app-body">
-        {/* SIDEBAR */}
+        {/* sidebar */}
         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
           <div className="document-types">
             <button
@@ -196,7 +196,7 @@ function App() {
             </button>
           </div>
 
-          {/* UPLOADER ALWAYS VISIBLE */}
+          {/* uploader*/}
           <div className="upload-area">
             <h3>Upload Document</h3>
 
@@ -213,14 +213,14 @@ function App() {
           </div>
         </div>
 
-        {/* MAIN CONTENT */}
+    
         <div className="main-content">
-          {/* SEARCH BAR */}
+          
           <div className="search-panel">
             <PdfForm formData={formData} setFormData={setFormData} />
           </div>
 
-          {/* PREVIEW */}
+          {/* preview */}
           <div className="preview-container">
             {activeViewer === "pdf" && (
               <PdfPreview pdfUrl={pdfUrl} formData={formData} />

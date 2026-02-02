@@ -21,7 +21,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
   const pageNavPluginRef = useRef(pageNavigationPlugin());
 
   const { highlight, clearHighlights } = searchPluginRef.current;
-  const { CurrentPageLabel } = pageNavPluginRef.current;
+ 
 
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
@@ -65,15 +65,7 @@ const PdfPreview = ({ pdfUrl, formData }) => {
         </div>
       ) : (
         <div className="pdf-container">
-          {/* <div className="pdf-page-label">
-            <CurrentPageLabel>
-              {(props) => (
-                <>
-                  {props.currentPage + 1} / {props.numberOfPages}
-                </>
-              )}
-            </CurrentPageLabel>
-          </div> */}
+       
 
           <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js">
             <Viewer

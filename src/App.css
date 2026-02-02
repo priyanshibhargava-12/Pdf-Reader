@@ -43,16 +43,18 @@ body {
 /* HEADER */
 .app-header {
   background: var(--primary-light);
-  padding: 16px 24px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position:relative;
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  gap: 12px;
+  /* gap: 12px; */
+  padding: 15px;
 }
 
 .hamburger-btn {
@@ -76,6 +78,10 @@ body {
 }
 
 .app-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 25px;
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
@@ -209,7 +215,7 @@ body {
   flex-shrink: 0;
 }
 
-/* SEARCH INPUT */
+/* search input */
 .search-panel textarea {
   flex: 1;
   height: 40px;
@@ -234,7 +240,7 @@ body {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* ================= PREVIEW BOX ================= */
+/* preview box*/
 .preview-container {
   flex: 1;
   background: var(--bg-secondary);
@@ -246,14 +252,14 @@ body {
   white-space: nowrap;
 }
 
-/* PDF / DOC VIEWER WRAPPER */
+/* viewer wrapper*/
 .pdf-wrapper {
   height: 100%;
   overflow: auto;
   min-width: max-content;
 }
 
-/* CHANGE BORDER TO SOLID WHEN CONTENT LOADED */
+/* change border to solid when content loaded*/
 .preview-container:has(.pdf-wrapper.has-content),
 .preview-container:has(.image-wrapper.has-content),
 .preview-container:has(.word-wrapper.has-content),
@@ -273,7 +279,7 @@ body {
   overflow: auto;
 }
 
-/* React PDF FIX */
+
 .react-pdf__Document {
   height: auto !important;
   min-width: max-content;
@@ -286,7 +292,7 @@ body {
   overflow: hidden;
 }
 
-/* EMPTY STATE */
+
 .preview-empty {
   display: flex;
   flex-direction: column;
@@ -303,7 +309,7 @@ body {
   opacity: 0.5;
 }
 
-/* HIDE ALL SCROLLBARS */
+/* hide scrollbar */
 .sidebar::-webkit-scrollbar,
 .preview-container::-webkit-scrollbar,
 .pdf-wrapper::-webkit-scrollbar,
@@ -314,7 +320,7 @@ table::-webkit-scrollbar {
   height: 0;
 }
 
-/* Firefox scrollbar hiding */
+
 .sidebar,
 .preview-container,
 .pdf-wrapper,
@@ -324,9 +330,9 @@ table {
   scrollbar-width: none;
 }
 
-/*  RESPONSIVE DESIGN */
 
-/* TABLET - 768px and below */
+
+
 @media (max-width: 768px) {
   .hamburger-btn {
     display: flex;
@@ -409,7 +415,7 @@ table {
   }
 }
 
-/* MOBILE - 640px and below */
+
 @media (max-width: 640px) {
   .app {
     height: 100vh;
@@ -549,7 +555,7 @@ table {
   }
 }
 
-/* SMALL MOBILE - 480px and below */
+
 @media (max-width: 480px) {
   .app-title {
     font-size: 16px;

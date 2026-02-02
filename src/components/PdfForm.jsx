@@ -15,7 +15,7 @@ const SearchIcon = () => (
 const PdfForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     setFormData({
-      ...formData,
+      // ...formData,
       keywords: e.target.value,
     });
   };
